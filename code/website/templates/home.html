@@ -1,0 +1,60 @@
+{% extends "base.html" %} 
+
+{% block title %} 
+Home 
+{% endblock %}
+
+{% block content %}
+
+
+
+
+ {% with messages = get_flashed_messages(with_categories=true) %}
+ {% if messages %}
+ {% for category, message in messages %}
+ {% if category == 'error' %}
+ <div class="alert alert-danger alert-dismissible fade show" role="alert">
+     {{ message }}
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+ </div>
+ {% elif category == 'success' %}
+ <div class="alert alert-success alert-dismissible fade show" role="alert">
+     {{ message }}
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+ </div>
+ {% elif category == 'warning' %}
+ <div class="alert alert-warning alert-dismissible fade show" role="alert">
+     {{ message }}
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+ </div>
+ {% elif category == 'note' %}
+ <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+     {{ message }}
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+ </div>
+ {% endif %}
+ {% endfor %}
+ {% endif %}
+ {% endwith %}
+
+    <div class="banner">
+    <img src="../static/banner.png" alt="hi">
+    </div>
+    <div class="cards-list">
+    {% if movie|length > 0 %}
+    {% for movie in movie %}
+      <div class="card">
+          <div class="card_image"> <a href="/select_theaters/{{ movie.id }}" class="card_image"> <img src="/static/movie_posters/{{ movie.poster }} "/></a> </div>
+        <a href="/select_theaters/{{ movie.id }}" class="link-dark"><div class="card_title" style="padding-bottom:10px">
+              <p>{{ movie.title }}</p>
+        </div>
+            <div class="card_title"> rating - {{ movie.rating }}  </div>
+          <div class="card_title"> Genre - {{ movie.Genre }}  </div></a>
+      </div>
+     {% endfor %}
+    {% else %}
+        <h2>No Movies Yet</h2>
+    {% endif %}
+    </div>
+
+{% endblock %}
